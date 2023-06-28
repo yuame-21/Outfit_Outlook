@@ -1,9 +1,9 @@
 import requests  # import HTTP request library
 
 # send a request for data of a location (london in this case)
-# url = 'http://api.weatherapi.com/v1/current.json?key=7bbdace306904520a56214618232605&q=London&aqi=no'
+# url = 'http://api.weatherapi.com/v1/forecast.json?key=7bbdace306904520a56214618232605&q=London&aqi=no'
 # vision
-# url = 'http://api.weatherapi.com/v1/current.json?key=7bbdace306904520a56214618232605&q=' + USER_INPUT + '&aqi=no'
+# url = 'http://api.weatherapi.com/v1/forecast.json?key=7bbdace306904520a56214618232605&q=' + USER_INPUT + '&aqi=no'
 # response = requests.get(url)
 '''
 # handle the response
