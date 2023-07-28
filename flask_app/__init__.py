@@ -1,7 +1,7 @@
 from flask import Flask
 from flaskext.mysql import MySQL
 from src.ViewModel import Liner
-
+from flask import jsonify
 # My SQL object to access db in other parts of code
 db = MySQL()
 
@@ -21,7 +21,6 @@ def create_app():
     def hello():
         return 'Hello, World!'
 
-
     @app.route('/weather/<locname>/<string:type>/<string:query>')
     def curr_weather(locname, type, query):
         # set up Viewmodel to retrieve data from API
@@ -29,11 +28,11 @@ def create_app():
         vm.fetch_data()
 
         if type == "current":
-            return vm.curr_weather(query)
+            return jsonify(vm.curr_weather(query))
         elif type == "forecast":
-            return vm.forecast(query)
+            return jsonify(vm.forecast(query))
         elif type == "location":
-            return vm.location(query)
+            return jsonify(vm.location(query))
         else:
             return "Error: No valid type provided"
 

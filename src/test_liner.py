@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from connect_API import APIService
+from src.connect_API import APIService
 from src.ViewModel import Liner
 
 

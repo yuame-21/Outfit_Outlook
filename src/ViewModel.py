@@ -1,11 +1,11 @@
 # thinking we use Model View ViewModel architecture?
 # connects view and model and API stuff
-import connect_API
+import src.connect_API
 
 
 class Liner:
     def __init__(self, loc):
-        self.api_service = connect_API.APIService(loc)
+        self.api_service = src.connect_API.APIService(loc)
         self.data = {}  # dynamically create an empty dictionary to store data
 
     # fetch all API data and store within a dictionary
