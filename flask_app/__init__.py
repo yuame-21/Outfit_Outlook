@@ -1,9 +1,10 @@
 from flask import Flask
 from flaskext.mysql import MySQL
-import ViewModel
+from src.ViewModel import Liner
 
 # My SQL object to access db in other parts of code
 db = MySQL()
+
 
 def create_app():
     app = Flask(__name__)
@@ -15,17 +16,26 @@ def create_app():
 
     # set up database to store user data
 
-    # set up Viewmodel to retrieve data from API
-    vm = ViewModel()
-
     # routes
     @app.route('/')
     def hello():
         return 'Hello, World!'
 
-    @app.route('/current/weather/<locname>')
-    def curr_weather(locname):
-        out = vm.curr_weather()
+
+    @app.route('/weather/<locname>/<string:type>/<string:query>')
+    def curr_weather(locname, type, query):
+        # set up Viewmodel to retrieve data from API
+        vm = Liner(locname)
+        vm.fetch_data()
+
+        if type == "current":
+            return vm.curr_weather(query)
+        elif type == "forecast":
+            return vm.forecast(query)
+        elif type == "location":
+            return vm.location(query)
+        else:
+            return "Error: No valid type provided"
 
     # register routes
 
