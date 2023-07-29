@@ -2,6 +2,7 @@ from flask import Flask
 from flaskext.mysql import MySQL
 from src.ViewModel import Liner
 from flask import jsonify
+
 # My SQL object to access db in other parts of code
 db = MySQL()
 
@@ -35,7 +36,5 @@ def create_app():
             return jsonify(vm.location(query))
         else:
             return "Error: No valid type provided"
-
-    # register routes
 
     return app
