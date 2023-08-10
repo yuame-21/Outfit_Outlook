@@ -15,7 +15,7 @@ class TestLiner(unittest.TestCase):
         # mock response for successful API call
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"current": {"temp": "25"}, "location": {"city": "Test City"} }
+        mock_response.json.return_value = {"current": {"temp": "25"}, "location": {"city": "Test City"}}
         self.mock_api_service.fetch_data.return_value = mock_response
 
         self.liner.fetch_data()
@@ -36,33 +36,28 @@ class TestLiner(unittest.TestCase):
         # verify that self.data remains unchanged due to a failed API call
         self.assertEqual(self.liner.data, {})
 
-    def test_curr_weather(self):
-        self.liner.data = {"current": {"temp": "25", "humidity": "78"}, "location": {"city": "Test City"}}
+    def test_parse(self):
+        self.liner.data = {"current": {"temp": "25", "humidity": "78"},
+                           "location": {"city": "Test City", "country": "Test Country"},
+                           "forecast": {"condition": "sunny", "max_temp": "80"}}
+        # test fetching current temp
+        self.assertEqual(self.liner.parse_weather("current", "temp"), "25")
 
-        # test fetching temp
-        self.assertEqual(self.liner.curr_weather("temp"), "25")
+        # test fetching current humidity
+        self.assertEqual(self.liner.parse_weather("current", "humidity"), "78")
 
-        # test fetching humidity
-        self.assertEqual(self.liner.curr_weather("humidity"), "78")
+        # test fetching location city
+        self.assertEqual(self.liner.parse_weather("location", "city"), "Test City")
 
-    def test_location(self):
-        self.liner.data = {"current": {"temp": "25", "humidity": "78"}, "location": {"city": "Test City",
-                                                                                     "country": "Test Country"}}
-        # test fetching city
-        self.assertEqual(self.liner.location("city"), "Test City")
+        # test fetching location country
+        self.assertEqual(self.liner.parse_weather("location", "country"), "Test Country")
 
-        # test fetching country
-        self.assertEqual(self.liner.location("country"), "Test Country")
+        # test fetching forecast condition
+        self.assertEqual(self.liner.parse_weather("forecast", "condition"), "sunny")
 
-    def test_forecast(self):
-        self.liner.data = {"forecast": {"weather": "sunny", "max_temp": "80"}, "current": {"temp": "25", "humidity": "78"},
-                           "location": {"city": "Test City", "country": "Test Country"}}
-        # test fetching city
-        self.assertEqual(self.liner.forecast("weather"), "sunny")
-
-        # test fetching country
-        self.assertEqual(self.liner.forecast("max_temp"), "80")
+        # test fetching forecast max temp
+        self.assertEqual(self.liner.parse_weather("forecast", "max_temp"), "80")
 
 
-if __name__ =="__main__":
+if __name__ == "__main__":
     unittest.main()

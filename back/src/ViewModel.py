@@ -13,7 +13,7 @@ class Liner:
         response = self.api_service.fetch_data()
         if response.status_code == 200:
             # turn json into a giant dictionary and store in self.data
-            self.data = response.json()
+            self.data = self.api_service.clean_data(response)
         else:
             print("request failed with status code:", response.status_code)
 
