@@ -22,7 +22,7 @@ def create_app():
     def hello():
         return 'Hello, World!'
 
-    @app.route('/weather/<string:locname>/<string:key>/<string:query>')
+    @app.route('/<string:locname>/<string:key>/<string:query>')
     def curr_weather(locname, key, query):
         # set up Viewmodel to retrieve data from API
         vm = Liner(locname)

@@ -18,6 +18,9 @@ class TestLiner(unittest.TestCase):
         mock_response.json.return_value = {"current": {"temp": "25"}, "location": {"city": "Test City"}}
         self.mock_api_service.fetch_data.return_value = mock_response
 
+        # simulate clean_data() of mock API service
+        self.mock_api_service.clean_data.return_value = {"current": {"temp": "25"}, "location": {"city": "Test City"}}
+
         self.liner.fetch_data()
 
         # verify that self.data is updated with the mock API response
