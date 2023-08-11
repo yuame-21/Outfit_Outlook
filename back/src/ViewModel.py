@@ -24,7 +24,7 @@ class Liner:
         try:
             return d[q]
         except KeyError:
-            return "Incorrect key given"
+            return "Incorrect query given"
 
 # analyze it to determine clothing suggestions
 # use sql to query a database of suggestions
