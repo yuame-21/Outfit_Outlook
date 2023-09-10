@@ -26,5 +26,10 @@ class Liner:
         except KeyError:
             return "Incorrect query given"
 
+
 # analyze it to determine clothing suggestions
 # use sql to query a database of suggestions
+    def suggestion(self, s):
+        avg_w = self.parse_weather('forecast', 'avg_temp')
+        q = 'SELECT description FROM Clothing WHERE conditions = s AND avg_w < tempReq'
+

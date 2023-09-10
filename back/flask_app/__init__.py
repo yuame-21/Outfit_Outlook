@@ -41,4 +41,12 @@ def create_app():
         else:
             return "Error: No valid key provided"
 
+    @app.route('/<string:locanme>/<userSelect>')
+    def clothing_sugg(locname, select):
+        vm = Liner(locname)
+        vm.fetch_data()
+        avg_w = vm.parse_weather('forecast', 'avg_temp')
+
+        return jsonify(vm.suggestion())
+
     return app
